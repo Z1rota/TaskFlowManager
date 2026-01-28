@@ -1,0 +1,49 @@
+<div class="dashboard-wrapper">
+  <nav class="navbar">
+    <h1>TaskFlow</h1>
+    <button (click)="logout()" class="btn-logout">Выйти</button>
+  </nav>
+
+  <div class="container">
+
+    <div class="create-task-card">
+      <h3>Новая задача</h3>
+      <form (ngSubmit)="createTask()">
+        <input 
+          [(ngModel)]="newTask.title" 
+          name="title" 
+          placeholder="Название задачи" 
+          required 
+          class="input-dark">
+        
+        <textarea 
+          [(ngModel)]="newTask.description" 
+          name="description" 
+          placeholder="Описание..." 
+          class="input-dark area"></textarea>
+        
+        <button type="submit" class="btn-primary">Добавить</button>
+      </form>
+    </div>
+
+    <ng-container *ngIf="tasks$ | async as taskList">
+      
+      <div class="tasks-grid">
+        <div *ngFor="let task of taskList" class="task-card">
+          <div class="task-header">
+            <span class="badge" [ngClass]="task.status">{{ task.status }}</span>
+            <button (click)="deleteTask(task.id!)" class="btn-icon">✕</button>
+          </div>
+          <h4>{{ task.title }}</h4>
+          <p>{{ task.description }}</p>
+        </div>
+      </div>
+      
+      <!-- Проверка длины теперь идет по taskList -->
+      <div *ngIf="taskList.length === 0" class="empty-state">
+        У вас пока нет задач. Создайте первую! 🚀
+      </div>
+
+    </ng-container>
+  </div>
+</div>

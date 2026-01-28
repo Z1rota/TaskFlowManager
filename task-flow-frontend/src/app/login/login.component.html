@@ -1,0 +1,57 @@
+<div class="auth-wrapper">
+  <div class="auth-container">
+    <h2>Вход в TaskFlow</h2>
+    
+    <form (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+      
+      <div class="form-group">
+        <label for="username">Имя пользователя</label>
+        <input 
+          type="text" 
+          name="username" 
+          [(ngModel)]="form.username" 
+          required 
+          #username="ngModel">
+        <div class="error-msg" *ngIf="username.invalid && f.submitted">
+          Введите имя пользователя
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input 
+          type="password" 
+          name="password" 
+          [(ngModel)]="form.password" 
+          required 
+          #password="ngModel">
+        <div class="error-msg" *ngIf="password.invalid && f.submitted">
+          Введите пароль
+        </div>
+      </div>
+
+   
+      <div class="error-msg" *ngIf="errorMessage" style="text-align: center; margin-bottom: 10px;">
+        {{ errorMessage }}
+      </div>
+
+      <a routerLink="/forgot-password" class="forgot-password">Забыли пароль?</a>
+      <button type="submit" class="btn-primary">Войти</button>
+    </form>
+
+    <div class="divider"><span>или войти через</span></div>
+
+    <div class="social-login">
+      <a href="http://localhost:8080/oauth2/authorization/google" class="btn-social">
+        <img src="assets/icons/google.svg" alt="Google"> Google
+      </a>
+      <a href="http://localhost:8080/oauth2/authorization/github" class="btn-social">
+        <img src="assets/icons/github.svg" alt="GitHub"> GitHub
+      </a>
+    </div>
+
+    <div style="margin-top: 1.5rem;">
+      Нет аккаунта? <a routerLink="/register">Зарегистрироваться</a>
+    </div>
+  </div>
+</div>
